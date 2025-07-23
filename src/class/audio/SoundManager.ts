@@ -98,8 +98,16 @@ export class SoundManager {
 
 let sm: SoundManager;
 
-export const setupSoundManager = () => {
+export const setupSoundManager = async () => {
   sm = new SoundManager();
+  
+  // Load initial sounds based on current theme
+  const theme = document.documentElement.dataset.theme;
+  if (theme === "wiiu") {
+    await loadBaseSounds("./assets/audio/miiMakerU.zip");
+  } else {
+    await loadBaseSounds("./assets/audio/miiMakerSwitch.zip");
+  }
 };
 
 export const loadBaseSounds = async (
