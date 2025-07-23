@@ -26,7 +26,7 @@ import { customRender } from "./pages/library/render/customRender";
 export async function setupUi() {
   let mm = getMusicManager();
 
-  updateSettings(true);
+  await updateSettings(true);
 
   displayUpdateNotice();
 
@@ -71,7 +71,7 @@ export async function setupUi() {
   }
 
   mm.initMusic();
-  setupSoundManager();
+  await setupSoundManager();
 
   if (location.search !== "") {
     const searchParams = new URLSearchParams(location.search);

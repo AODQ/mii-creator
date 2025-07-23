@@ -43,14 +43,20 @@ export class MusicManager {
 
   async initMusic() {
     this.sources.forEach((src) => src.stop());
-    const theme =
+    let theme =
       document.documentElement.dataset.theme !== undefined
         ? document.documentElement.dataset.theme
         : await localforage.getItem("settings_theme") as string;
+    
+    // Default to "default" theme if no theme is set
+    if (theme === null || theme === undefined || theme === "null") {
+      theme = "default";
+    }
+    
     if (this.theme === theme) return;
     this.theme = theme;
 
-    console.error("initMusic()", theme, document.documentElement.dataset.theme);
+    console.log("initMusic() - theme:", theme, "documentElement theme:", document.documentElement.dataset.theme);
 
     if (theme === "wiiu") {
       this.setVolume(0.65);
